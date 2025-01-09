@@ -31,6 +31,10 @@ export async function GET() {
         orderBy: {
           timestamp: 'desc',
         },
+        select: {
+            id: true,
+            timestamp: true,
+        }
       }),
       prisma.sniData.findMany({
         where: {
@@ -57,15 +61,15 @@ export async function GET() {
           orderBy: {
             timestamp: 'desc',
           },
+          select: {
+            id: true,
+            timestamp: true,
+          }
         }),
         prisma.sniData.findMany({
           take: 100,
           orderBy: {
             timestamp: 'desc',
-          },
-          select: {
-            id: true,
-            timestamp: true,
           }
         }),
       ])
