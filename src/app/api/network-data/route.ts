@@ -63,6 +63,10 @@ export async function GET() {
           orderBy: {
             timestamp: 'desc',
           },
+          select: {
+            id: true,
+            timestamp: true,
+          }
         }),
       ])
 
