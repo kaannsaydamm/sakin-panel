@@ -7,6 +7,7 @@ body {
 }
 
 @layer base {
+  /* Default Light Mode Variables */
   :root {
     --background: 0 0% 100%;
     --foreground: 20 14.3% 4.1%;
@@ -34,6 +35,8 @@ body {
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
   }
+
+  /* Dark Mode Variables */
   .dark {
     --background: 20 14.3% 4.1%;
     --foreground: 60 9.1% 97.8%;
@@ -63,10 +66,17 @@ body {
 }
 
 @layer base {
+  /* Apply global styles for the light mode and dark mode */
   * {
     @apply border-border;
   }
+
   body {
+    @apply bg-background text-foreground;
+  }
+
+  /* Apply dark mode colors globally when dark mode is enabled */
+  .dark body {
     @apply bg-background text-foreground;
   }
 }

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 
 import { useEffect, useState } from 'react'
 import { Line } from 'react-chartjs-2'
@@ -27,7 +27,7 @@ ChartJS.register(
 )
 
 export default function NetworkDashboard() {
-  const [data, setData] = useState<any>({ packetData: [], sniData: [] })
+  const [data, setData] = useState({ packetData: [], sniData: [] })
   const [loading, setLoading] = useState(true)
   const [message, setMessage] = useState<string | null>(null)
 
@@ -90,18 +90,19 @@ export default function NetworkDashboard() {
   }
 
   if (loading) {
-    return <div className="flex items-center justify-center min-h-screen">Loading...</div>
+    return <div className="flex items-center justify-center min-h-screen text-center text-gray-700 dark:text-gray-300">Loading...</div>
   }
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 p-4">
+    <div className="grid gap-6 md:grid-cols-2 p-4 dark:bg-gray-900 dark:text-white">
       {message && (
-        <Alert className="md:col-span-2">
+        <Alert className="md:col-span-2 bg-yellow-100 text-yellow-800 dark:bg-yellow-700 dark:text-yellow-200">
           <AlertTitle>Notice</AlertTitle>
           <AlertDescription>{message}</AlertDescription>
         </Alert>
       )}
-      <Card>
+
+      <Card className="shadow-md dark:bg-gray-800 dark:border-gray-700">
         <CardHeader>
           <CardTitle>Network Packet Activity</CardTitle>
         </CardHeader>
@@ -110,7 +111,7 @@ export default function NetworkDashboard() {
         </CardContent>
       </Card>
 
-      <Card>
+      <Card className="shadow-md dark:bg-gray-800 dark:border-gray-700">
         <CardHeader>
           <CardTitle>SNI Activity</CardTitle>
         </CardHeader>
@@ -119,24 +120,24 @@ export default function NetworkDashboard() {
         </CardContent>
       </Card>
 
-      <Card className="md:col-span-2">
+      <Card className="md:col-span-2 shadow-md dark:bg-gray-800 dark:border-gray-700">
         <CardHeader>
           <CardTitle>Recent SNI Entries</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="overflow-x-auto">
-            <table className="min-w-full table-auto">
+            <table className="min-w-full table-auto border-separate border-spacing-0 dark:text-white">
               <thead>
-                <tr>
-                  <th className="px-4 py-2">Time</th>
-                  <th className="px-4 py-2">SNI</th>
-                  <th className="px-4 py-2">Source IP</th>
-                  <th className="px-4 py-2">Destination IP</th>
+                <tr className="border-b dark:border-gray-600">
+                  <th className="px-4 py-2 text-left">Time</th>
+                  <th className="px-4 py-2 text-left">SNI</th>
+                  <th className="px-4 py-2 text-left">Source IP</th>
+                  <th className="px-4 py-2 text-left">Destination IP</th>
                 </tr>
               </thead>
               <tbody>
                 {data.sniData.slice(0, 10).map((entry: any) => (
-                  <tr key={entry.id}>
+                  <tr key={entry.id} className="border-b dark:border-gray-600">
                     <td className="px-4 py-2">{new Date(entry.timestamp).toLocaleString()}</td>
                     <td className="px-4 py-2">{entry.sni}</td>
                     <td className="px-4 py-2">{entry.srcIp}</td>
@@ -151,4 +152,3 @@ export default function NetworkDashboard() {
     </div>
   )
 }
-
