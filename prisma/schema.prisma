@@ -1,0 +1,37 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model PacketData {
+  id        Int      @id @default(autoincrement()) // Auto-incrementing ID
+  srcIp     String   // Source IP
+  dstIp     String   // Destination IP
+  protocol  String   // Protocol (e.g., TCP, UDP)
+  timestamp DateTime // The timestamp when the packet was captured
+
+  @@index([srcIp, dstIp]) // Optional: Index for faster searches on IP fields
+}
+
+// SNI verileri için model
+model SniData {
+  id        Int      @id @default(autoincrement()) // Auto-incrementing ID
+  sni       String   // The SNI field
+  srcIp     String   // Source IP
+  dstIp     String   // Destination IP
+  protocol  String   // Protocol (e.g., TCP, UDP)
+  timestamp DateTime // The timestamp when the SNI was captured
+
+  @@index([sni]) // Optional: Index for faster searches on the SNI field
+  @@index([srcIp, dstIp]) // Optional: Index for faster searches on IP fields
+}
